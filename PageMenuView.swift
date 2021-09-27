@@ -353,6 +353,7 @@ private extension Array where Element == PageMenuViewCell {
         resetSelected()
         let selectedCell = filter { $0.index == index }.first
         selectedCell?.isSelected = true
+        
         return selectedCell?.index
     }
 }
