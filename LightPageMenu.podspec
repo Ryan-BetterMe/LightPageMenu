@@ -25,7 +25,6 @@ Pod::Spec.new do |spec|
   # spec.license      = "MIT"
   # spec.license      = { :type => "MIT", :file => "LICENSE" }
 
-
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   spec.author             = { "Ryan" => "lancexianghui@gmail.com" }
@@ -66,7 +65,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "Classes/**/*.{h,m}"
+  spec.source_files  = "PageMenu/*.swift"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
