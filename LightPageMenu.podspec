@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "LightPageMenu"
-  spec.version      = "1.0.1"
+  spec.version      = "1.0.2"
   spec.summary      = "A really lightful pageMenu library."
 
   spec.description  = <<-DESC

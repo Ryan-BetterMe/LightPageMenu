@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PageMenuViewCell: UIView {
+open class PageMenuViewCell: UIView {
     /// 是否处于选择状态
     open var isSelected: Bool = false
 
