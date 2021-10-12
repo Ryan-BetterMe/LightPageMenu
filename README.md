@@ -14,12 +14,69 @@ PageMenuView
 PageContentViewController
 
 PageMenuView提供了可交互的菜单栏以供用户自定义，如果你选择PageMenuView作为菜单栏来展示，那么只需要以下几部即可。
+
 1、继承PageMenuViewCell
+
 2、自定义和当前Page关联的菜单栏指示视图
+
 3、实现PageMenuViewDataSource代理
+
 4、加载数据
 
+#### 1.继承PageMenuViewCell，自定义菜单项
+```Swift
+class CustomPageMenuCell: PageMenuViewCell {
+    var label: UILabel!
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                label.textColor = UIColor.cyan
+            } else {
+                label.textColor = UIColor.black
+            }
+        }
+    }
+    ......
+}
+```
+如果有多个不同的菜单项，就实现多个不同类以自定义菜单栏。
 
+#### 2.自定义和当前Page相关联的菜单栏指示视图
+```Swift
+  let line = UIView.init()
+  line.frame = CGRect.init(x: 0, y: 0, width: 30, height: 8)
+  line.backgroundColor = UIColor.red
+  line.layer.cornerRadius = 4
+  line.layer.masksToBounds = true
+  pageView.registerFocusView(view: line)
+```
+
+可以自定义一个视图实现菜单栏指示视图。
+
+#### 3.实现PageMenuViewDataSource代理
+```Swift
+extension ViewController: PageMenuViewDataSource {
+    func numberOfItemsPageMenuView() -> Int {
+        return datas.count
+    }
+    
+    func pageMenuView(pageMenuView: PageMenuView, widthForItemAt index: Int) -> CGFloat {
+        let width = (datas[index] as! NSString).boundingRect(with: CGSize.init(width: CGFloat.infinity, height: 20), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .medium)], context: nil).width + 2
+        return width
+    }
+    
+    func pageMenuView(pageMenuView: PageMenuView, cellForItemAt index: Int) -> PageMenuViewCell {
+        let cell = CustomPageMenuCell.init()
+        cell.setupCell(text: datas[index])
+        
+        return cell
+    }
+}
+
+这里是实现DataSurce代理，提供具体的菜单项数据。
+
+
+```
 
 
 ## How to install?
