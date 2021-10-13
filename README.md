@@ -75,7 +75,22 @@ extension ViewController: PageMenuViewDataSource {
 
 这里是实现DataSurce代理，提供具体的菜单项数据。
 
+```
 
+#### 4.加载数据
+
+```swift
+pageView.loadData()
+```
+当完成UI布局之后，并且所有的数据也配置完成，那么最后就需要调用loadData()来加载数据项，配置菜单项的UI了。
+
+最后需要注意，因为这里提供了更强大的用户自定义的功能，所以当用户选择具体的某一个index的时候，是需要自己设置移动的，具体如下;
+```swift
+extension ViewController: PageMenuViewDelegate {
+    func pageMenuView(pageMenuView: PageMenuView, didSelectedItemAt index: Int) {
+        pageView.scrollItem(to: index, animated: true, completion: nil)
+    }
+}
 ```
 
 
