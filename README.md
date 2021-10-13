@@ -24,6 +24,8 @@ PageMenuView提供了可交互的菜单栏以供用户自定义，如果你选�
 
 4、加载数据
 
+___
+
 #### 1.继承PageMenuViewCell，自定义菜单项
 ```Swift
 class CustomPageMenuCell: PageMenuViewCell {
@@ -85,7 +87,7 @@ pageView.loadData()
 ```
 当完成UI布局之后，并且所有的数据也配置完成，那么最后就需要调用loadData()来加载数据项，配置菜单项的UI了。
 
-最后需要注意，因为这里提供了更强大的用户自定义的功能，所以当用户选择具体的某一个index的时候，是需要自己设置移动的，具体如下;
+最后需要注意，因为这里提供了更强大的用户自定义的功能，所以当用户选择具体的某一个index的时候，是需要自己设置移动的.
 ```swift
 extension ViewController: PageMenuViewDelegate {
     func pageMenuView(pageMenuView: PageMenuView, didSelectedItemAt index: Int) {
@@ -95,14 +97,16 @@ extension ViewController: PageMenuViewDelegate {
 ```
 
 
-当菜单栏被配置完毕之后，接下来需要自定义与菜单项一一对应的PagingContentViewController。具体配置如下：
+当菜单栏被配置完毕之后，接下来需要自定义与菜单项一一对应的PagingContentViewController.
 1、初始化PagingContentViewController
 
 2、将PagingContentViewController添加为子控制器
 
-3、实现delegate和datasource代理
+3、实现PageContentViewControllerDelegate和PageContentViewControllerDataSource代理
 
 4、加载数据
+
+___
 
 #### 1、初始化PagingContentViewController
 ```swift
@@ -124,5 +128,52 @@ pageContentVC.delegate = self
 pageContentVC.dataSource = self
 
 ```
+这里需要设置pageContentVC中view的具体frame
+
+#### 3、实现PageContentViewControllerDelegate和PageContentViewControllerDataSource代理
+
+```
+extension ViewController: PageContentViewControllerDelegate {
+    func contentViewController(viewController: PageContentViewController, willBeginManualScrollOn index: Int) {}
+    
+    func contentViewController(viewController: PageContentViewController, didEndManualScrollOn index: Int) {}
+    
+    func contentViewController(viewController: PageContentViewController, didManualScrollOn index: Int, percent: CGFloat) {
+        pageView.scrollItem(to: index, percent: percent)
+        
+        // 添加focusview的动画
+        let y = CGFloat(2 * fabs(Double(percent)) + 1)
+        pageView.focusView.subviews[0].frame.size = CGSize.init(width: 30 * y, height: 8)
+    }
+}
+
+extension ViewController: PageContentViewControllerDataSource {
+    func numberOfItemsForContentViewController(viewController: PageContentViewController) -> Int {
+        return contents.count
+    }
+    
+    func contentViewController(viewController: PageContentViewController, viewControllerAt index: Int) -> UIViewController {
+        return contents[index]
+    }
+}
+```
+
+#### 4、加载数据
+最后一步和之前一样，只不过这里需要加载的是pageContentVC的数据而已。
+```swift
+pageContentVC.loadData()
+```
 
 ## How to install?
+使用cocoapoad安装
+```swift
+pod 'LightPageMenu'
+```
+
+## Class
+这个库的整体类似PagingKit，所以在原则上也是类似的:
+- 行为由库所定义
+- 布局则留给开发者
+
+
+
