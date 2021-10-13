@@ -11,6 +11,7 @@ LightPageMenu 这个框架借鉴了[pagingKit](https://github.com/kazuhiro4949/P
 ## How to use?
 LightPageMenu框架有两个关键的类：
 PageMenuView
+
 PageContentViewController
 
 PageMenuView提供了可交互的菜单栏以供用户自定义，如果你选择PageMenuView作为菜单栏来展示，那么只需要以下几部即可。
@@ -93,5 +94,35 @@ extension ViewController: PageMenuViewDelegate {
 }
 ```
 
+
+当菜单栏被配置完毕之后，接下来需要自定义与菜单项一一对应的PagingContentViewController。具体配置如下：
+1、初始化PagingContentViewController
+
+2、将PagingContentViewController添加为子控制器
+
+3、实现delegate和datasource代理
+
+4、加载数据
+
+#### 1、初始化PagingContentViewController
+```swift
+let pageContentVC = PageContentViewController.init()
+```
+
+#### 2、将PagingContentViewController添加为子控制器
+
+```swift
+addChild(pageContentVC)
+pageContentVC.view.frame = CGRect.init(x: 0,
+                            y: 160,
+                            width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.height - 160)
+view.addSubview(pageContentVC.view)
+pageContentVC.didMove(toParent: self)
+
+pageContentVC.delegate = self
+pageContentVC.dataSource = self
+
+```
 
 ## How to install?
