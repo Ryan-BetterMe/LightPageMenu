@@ -175,5 +175,6 @@ pod 'LightPageMenu'
 - 行为由库所定义
 - 布局则留给开发者
 
+![LightPageMenu类图](https://user-images.githubusercontent.com/34939593/137106739-31a15ec0-aa97-44ab-995f-bd8f392b2027.png)
 
 
